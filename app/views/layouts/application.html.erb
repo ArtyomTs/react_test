@@ -10,8 +10,15 @@
   </head>
 
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <div class="header">
+      <%= link_to('Logout', destroy_user_session_path, method: :delete, class: "right") if user_signed_in? %>
+    </div>
+    <%- if flash[:notice] %>
+      <p class="notice"><%= notice %></p>
+    <%- end %>
+    <%- if flash[:alert] %>
+      <p class="alert"><%= alert %></p>
+    <%- end %>
     <%= yield %>
   </body>
 </html>
