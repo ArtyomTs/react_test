@@ -1,0 +1,39 @@
+body {
+  margin: 0;
+}
+
+.alert {
+  text-align: center;
+  font-family: sans-serif;
+  border: 1px solid #ffcccc;
+  background-color: #ffeeee;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 40px;
+}
+
+.notice {
+  text-align: center;
+  font-family: sans-serif;
+  border: 1px solid #aaffaa;
+  background-color: #eeffee;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 5px 40px;
+}
+
+.header {
+  text-align: center;
+  font-family: sans-serif;
+  background-color: #999999;
+  color: #ffffff;
+  padding: 10px;
+  height: 20px;
+  a {
+    color: #ffffff;
+    text-decoration: none;
+    &.right {
+      float: right;
+    }
+  }
+}

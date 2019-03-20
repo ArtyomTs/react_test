@@ -1,0 +1,21 @@
+h2 {
+  text-align: center;
+}
+
+form {
+  .field {
+    text-align: center;
+    input {
+      padding: 7px;
+      border-radius: 3px;
+    }
+  }
+  .actions {
+    text-align: center;
+    padding: 5px;
+    input {
+      padding: 7px 20px;
+      border-radius: 3px;
+    }
+  }
+}
