@@ -1,0 +1,31 @@
+.project {
+  background-color: #aff;
+  float: left;
+  margin-left: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+  .project-title {
+    background-color: #9cf;
+    padding: 5px;
+    margin: 0;
+    min-width: 150px;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+  }
+  .users {
+    padding: 0;
+    list-style: none;
+    padding-left: 10px;
+    .new-user {
+      text-align: center;
+      padding-top: 8px;
+      a {
+        text-decoration: none;
+        color: white;
+        background-color: #aaf;
+        padding: 2px 10px;
+        border-radius: 12px;
+      }
+    }
+  }
+}
