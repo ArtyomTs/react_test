@@ -1,5 +1,6 @@
 import React from 'react';
 import Project from './project';
+import client from '../client'
 
 class Projects extends React.Component {
   constructor(props) {
@@ -10,25 +11,14 @@ class Projects extends React.Component {
   }
 
   componentDidMount() {
-    this.getProjects()
-  }
-
-  doRequest(query) {
-    return fetch('/graphql', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify(query)
-    })
-    .then(r => r.json())
+    this.getProjects();
+    client.getData('');
   }
 
   getProjects() {
     const self = this;
     const query = {query: "{ projects {name\n users { email }} }"};
-    this.doRequest(query).then(data => {
+    client.getData(query).then(data => {
         console.log(data);
         self.setState({projects: data.data.projects})
       }
@@ -39,7 +29,7 @@ class Projects extends React.Component {
     return (
       <div>
         { this.state.projects.map((project) => {
-            return(<Project key={project.id} project={project}/>)
+            return(<Project key={project.id} project={project} />)
           })
         }
       </div>

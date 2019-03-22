@@ -16,16 +16,16 @@
     padding: 0;
     list-style: none;
     padding-left: 10px;
-    .new-user {
-      text-align: center;
-      padding-top: 8px;
-      a {
-        text-decoration: none;
-        color: white;
-        background-color: #aaf;
-        padding: 2px 10px;
-        border-radius: 12px;
-      }
-    }
+  }
+  .new-user, .hide-candidates {
+    text-align: center;
+    padding-top: 8px;
+  }
+  a.btn {
+    text-decoration: none;
+    color: white;
+    background-color: #aaf;
+    padding: 2px 10px;
+    border-radius: 12px;
   }
 }

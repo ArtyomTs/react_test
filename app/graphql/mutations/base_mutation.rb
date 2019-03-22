@@ -1,2 +1,2 @@
-class Mutations::BaseMutation < GraphQL::Schema::RelayClassicMutation
+class Mutations::BaseMutation < GraphQL::Schema::Mutation
 end
