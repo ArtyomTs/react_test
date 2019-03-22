@@ -13,11 +13,26 @@ class Projects extends React.Component {
     this.getProjects()
   }
 
+  doRequest(query) {
+    return fetch('/graphql', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(query)
+    })
+    .then(r => r.json())
+  }
+
   getProjects() {
-    this.setState({projects: [
-      {name: 'aaaa', id: 1, users: [{email: 'e1'}, {email: 'e2'}]},
-      {name: 'bbbb', id: 2, users: [{email: 'e1'}, {email: 'e3'}]}
-    ]})
+    const self = this;
+    const query = {query: "{ projects {name\n users { email }} }"};
+    this.doRequest(query).then(data => {
+        console.log(data);
+        self.setState({projects: data.data.projects})
+      }
+    );
   }
 
   render() {
