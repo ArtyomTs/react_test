@@ -12,6 +12,10 @@ class Project extends React.Component {
     this.addUser = this.addUser.bind(this);
     this.hideCandidates = this.hideCandidates.bind(this);
     this.assignUser = this.assignUser.bind(this);
+    this.editName = this.editName.bind(this);
+    this.confirmEditName = this.confirmEditName.bind(this);
+    this.cancelEditName = this.cancelEditName.bind(this);
+    this.projectNameUpdated = this.projectNameUpdated.bind(this);
   }
 
   componentDidMount() {
@@ -87,10 +91,59 @@ class Project extends React.Component {
     }
   }
 
+  editName(e) {
+    e.preventDefault();
+    this.setState({editName: true})
+  }
+
+  cancelEditName(e) {
+    e.preventDefault();
+    const project = Object.assign({}, this.state.project);
+    project.name = this.props.project.name;
+    this.setState({project: project, editName: false})
+  }
+
+  confirmEditName(e) {
+    e.preventDefault();
+    const self = this;
+    const query = {query: `mutation {updateProject(projectId: ${this.state.project.id}\n name: "${this.state.project.name}"){project{id\n name\n users{id\n email}}}}`};
+    console.log(query)
+    client.getData(query).then(data => {
+        console.log(data);
+        self.setState({project: data.data.updateProject.project, editName: false})
+      }
+    );
+  }
+
+  projectNameUpdated(e) {
+    const newName = e.target.value;
+    const project = Object.assign({}, this.state.project);
+    project.name = newName;
+    this.setState({project: project})
+  }
+
+  projecHeader() {
+    if(this.state.editName) {
+      return(
+        <div className="project-title">
+          <input type="text" name="name" className="invisible-input" value={this.state.project.name} onChange={this.projectNameUpdated}/>
+          <span className="small-btn" onClick={this.confirmEditName}>+</span>
+          <span className="small-btn" onClick={this.cancelEditName}>x</span>
+        </div>
+      )
+    } else {
+      return(
+        <div className="project-title">
+          <h3 className="project-title" onClick={this.editName}>{this.state.project.name}</h3>
+        </div>
+      )
+    }
+  }
+
   render() {
     return (
       <div className="project">
-        <h3 className="project-title">{this.state.project.name}</h3>
+        {this.projecHeader()}
         <ul className="users">
           { this.state.project.users.map((user) => {
             return(<li key={`user_${user.id}`}>{user.email}</li>)

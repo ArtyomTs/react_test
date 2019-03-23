@@ -3,15 +3,12 @@ class Mutations::UpdateProject < Mutations::BaseMutation
 
   argument :project_id, ID, required: true
   argument :name, String, required: true
-  argument :assignee_ids, [ID], required: true
 
   field :project, Types::ProjectType, null: true
 
-  def resolve(project_id:, name:, assignee_ids:)
+  def resolve(project_id:, name:)
     project = Project.find project_id
-    users = User.where(id: assignee_ids)
-    project.users << users
-
+    project.update_attribute :name, name
     {
       project: project
     }
