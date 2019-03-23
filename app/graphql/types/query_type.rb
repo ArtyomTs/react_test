@@ -12,6 +12,7 @@ module Types
     field :candidates, [Types::UserType], null: false do
       argument :project_id, ID, required: true
     end
+
     def candidates(project_id:)
       assigned_ids = Assignment.where(project_id: project_id).pluck(:user_id)
       User.where.not(id: assigned_ids)

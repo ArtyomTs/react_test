@@ -11,15 +11,15 @@ class Project extends React.Component {
 
     this.addUser = this.addUser.bind(this);
     this.hideCandidates = this.hideCandidates.bind(this);
+    this.assignUser = this.assignUser.bind(this);
   }
 
   componentDidMount() {
-    // this.props.getCandidates(this.props.project.id)
   }
 
   getCandidates(projectId) {
     const self = this;
-    const query = {query: `{candidates(projectId: ${projectId}){id\nemail}}`};
+    const query = {query: `{candidates(projectId: ${projectId}){id\n email}}`};
     console.log(query)
     client.getData(query).then(data => {
         console.log(data);
@@ -46,6 +46,18 @@ class Project extends React.Component {
     )
   }
 
+  assignUser(e, userId) {
+    e.preventDefault();
+    const self = this;
+    const query = {query: `mutation {assignUser(projectId: ${this.state.project.id}\n userId: ${userId}){project{id\n name\n users{id\n email}}}}`};
+    console.log(query)
+    client.getData(query).then(data => {
+        console.log(data);
+        self.setState({project: data.data.assignUser.project, candidatesShown: false})
+      }
+    );
+  }
+
   candidatesList() {
     return(
       <div className="candidatesPanel">
@@ -55,7 +67,11 @@ class Project extends React.Component {
         <ul className="candidates">
           {
             this.state.candidates.map((candidate) => {
-              return(<li className="candidate">{candidate.email}</li>)
+              return(
+                <li key={`candidate_${candidate.id}`} className="candidate" onClick={(e) => { this.assignUser(e, candidate.id)}}>
+                  <span className="plus-sign">+</span>
+                  {candidate.email}
+                </li>)
             })
           }
         </ul>
@@ -77,7 +93,7 @@ class Project extends React.Component {
         <h3 className="project-title">{this.state.project.name}</h3>
         <ul className="users">
           { this.state.project.users.map((user) => {
-            return(<li>{user.email}</li>)
+            return(<li key={`user_${user.id}`}>{user.email}</li>)
           })}
         </ul>
         {this.addUserPanel()}

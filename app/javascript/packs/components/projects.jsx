@@ -17,7 +17,7 @@ class Projects extends React.Component {
 
   getProjects() {
     const self = this;
-    const query = {query: "{ projects {name\n users { email }} }"};
+    const query = {query: "{ projects {id\n name\n users { id\n email }} }"};
     client.getData(query).then(data => {
         console.log(data);
         self.setState({projects: data.data.projects})

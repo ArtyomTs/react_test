@@ -20,6 +20,7 @@
   .new-user, .hide-candidates {
     text-align: center;
     padding-top: 8px;
+    line-height: 35px;
   }
   a.btn {
     text-decoration: none;
@@ -27,5 +28,28 @@
     background-color: #aaf;
     padding: 2px 10px;
     border-radius: 12px;
+  }
+  .candidates {
+    list-style: none;
+    padding: 0 10px;
+    li {
+      cursor: pointer;
+      .plus-sign {
+        opacity: 0;
+        padding: 0px 2px 1px 2px;
+        border: 1px solid black;
+        font-weight: bold;
+        border-radius: 10px;
+        margin-right: 4px;
+        font-size: 10px;
+        line-height: 10px;
+        display: inline-block;
+      }
+      &:hover {
+        .plus-sign {
+          opacity: 1;
+        }
+      }
+    }
   }
 }
